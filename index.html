@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TCRS Overview and Self-Service | Demo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy:#081d55; --navy-dk:#06153e; --blue:#0050b2; --blue-dk:#0033a0; --blue-hi:#005bcb;
+    --red:#a20e00; --ink:#2e353e; --grey:#f2f2f2; --line:#e6e6e6;
+  }
+  * { box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+  body { margin:0; font-family:"Open Sans",Arial,sans-serif; color:var(--ink); background:#fff; line-height:1.6; font-size:16px; }
+  a { color:var(--blue); }
+  .wrap { max-width:1140px; margin:0 auto; padding:0 20px; }
+
+  /* Fictional-data banner (kept on purpose) */
+  .demo { background:var(--red); color:#fff; text-align:center; font-size:13px; font-weight:600; padding:6px 12px; letter-spacing:.2px; }
+
+  /* Top utility bar */
+  .util { background:var(--navy-dk); color:#cfd8ee; font-size:13px; }
+  .util .wrap { display:flex; justify-content:space-between; align-items:center; height:34px; }
+  .util a { color:#cfd8ee; text-decoration:none; margin-left:18px; }
+  .util a:hover { color:#fff; }
+
+  /* Header */
+  header.site { background:var(--navy); color:#fff; }
+  header.site .wrap { display:flex; align-items:center; justify-content:space-between; min-height:84px; flex-wrap:wrap; gap:12px; }
+  .brand { display:flex; align-items:center; gap:14px; color:#fff; text-decoration:none; }
+  .seal { width:52px; height:52px; border-radius:50%; border:2px solid #fff; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:13px; line-height:1; text-align:center; }
+  .brand .t1 { font-size:20px; font-weight:700; line-height:1.15; }
+  .brand .t2 { font-size:12px; opacity:.8; letter-spacing:.3px; }
+  nav.main { display:flex; gap:4px; flex-wrap:wrap; }
+  nav.main a { color:#fff; text-decoration:none; font-weight:600; font-size:14px; padding:10px 14px; border-radius:3px; }
+  nav.main a:hover, nav.main a.on { background:var(--blue-dk); }
+  .search { display:flex; }
+  .search input { border:0; padding:8px 10px; width:150px; font:inherit; font-size:13px; border-radius:3px 0 0 3px; }
+  .search button { border:0; background:var(--blue); color:#fff; padding:0 12px; border-radius:0 3px 3px 0; cursor:pointer; }
+
+  /* Breadcrumb / page title */
+  .crumbs { background:var(--grey); border-bottom:1px solid var(--line); font-size:13px; }
+  .crumbs .wrap { padding-top:10px; padding-bottom:10px; color:#666; }
+  .crumbs a { text-decoration:none; }
+  .titlebar { background:linear-gradient(90deg,var(--navy),var(--blue-dk)); color:#fff; padding:34px 0; }
+  .titlebar h1 { margin:0; font-size:34px; font-weight:700; }
+  .titlebar p { margin:6px 0 0; opacity:.85; font-size:15px; }
+
+  /* Buttons */
+  .btn { display:inline-block; background:var(--blue); color:#fff; text-decoration:none; font-weight:600; padding:11px 24px; border-radius:3px; border:2px solid var(--blue); font-size:15px; margin:6px 8px 6px 0; }
+  .btn:hover { background:var(--blue-dk); border-color:var(--blue-dk); }
+  .btn.outline { background:transparent; color:var(--blue); }
+  .btn.outline:hover { background:var(--blue); color:#fff; }
+  .btn.light { background:#fff; color:var(--navy); border-color:#fff; }
+  .btn.light:hover { background:var(--grey); }
+
+  /* Sections */
+  section { padding:48px 0; }
+  section.alt { background:var(--grey); }
+  h2 { color:var(--navy); font-size:28px; margin:0 0 14px; font-weight:700; }
+  h3 { color:var(--navy); font-size:21px; margin:0 0 10px; font-weight:700; }
+  .lead { font-size:18px; }
+  .two { display:grid; grid-template-columns:1.2fr 1fr; gap:36px; align-items:center; }
+  .badge { background:#fff; border:1px solid var(--line); border-left:5px solid var(--blue); padding:22px; border-radius:3px; }
+  .flags { display:flex; gap:8px; margin-top:12px; }
+  .flags span { flex:1; text-align:center; padding:14px 6px; color:#fff; font-weight:700; font-size:13px; border-radius:3px; }
+  .flags .a { background:var(--navy); } .flags .b { background:var(--blue); } .flags .c { background:var(--blue-hi); }
+
+  .cards { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+  .card { background:#fff; border:1px solid var(--line); border-top:4px solid var(--blue); border-radius:3px; padding:22px; }
+  .card p { margin:0 0 10px; }
+  ul.check { list-style:none; padding:0; margin:0 0 14px; }
+  ul.check li { padding-left:26px; position:relative; margin:6px 0; }
+  ul.check li:before { content:"\2713"; position:absolute; left:0; color:var(--blue); font-weight:700; }
+
+  .band { background:var(--navy); color:#fff; }
+  .band h2, .band h3 { color:#fff; }
+  .band a:not(.btn) { color:#fff; }
+  .contact { display:grid; grid-template-columns:repeat(3,1fr); gap:28px; }
+  .contact h3 { font-size:17px; }
+  .contact p { margin:0 0 6px; font-size:15px; }
+
+  footer.site { background:var(--navy-dk); color:#b8c3de; font-size:13px; padding:26px 0; }
+  footer.site a { color:#b8c3de; }
+
+  @media (max-width:820px) {
+    .two, .cards, .contact { grid-template-columns:1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="demo">DEMO SITE &mdash; FICTIONAL DATA. Not an official State of Tennessee website.</div>
+
+<div class="util">
+  <div class="wrap">
+    <span>Tennessee Department of Treasury</span>
+    <span><a href="#">Contact</a><a href="#">Forms &amp; Guides</a><a href="#">Español</a></span>
+  </div>
+</div>
+
+<header class="site">
+  <div class="wrap">
+    <a class="brand" href="#">
+      <div class="seal">TN<br>TREAS</div>
+      <div>
+        <div class="t1">Tennessee Department of Treasury</div>
+        <div class="t2">Hon. David H. Lillard, Jr., Treasurer</div>
+      </div>
+    </a>
+    <nav class="main" aria-label="Main">
+      <a href="#">Explore Treasury</a>
+      <a href="#">Services</a>
+      <a href="#" class="on">Retirement</a>
+      <a href="#">Unclaimed Property</a>
+      <a href="#">Contact</a>
+    </nav>
+    <form class="search" onsubmit="return false"><input type="search" placeholder="Search" aria-label="Search"><button type="submit" aria-label="Search">&#9906;</button></form>
+  </div>
+</header>
+
+<div class="crumbs"><div class="wrap"><a href="#">Home</a> &rsaquo; <a href="#">Retirement</a> &rsaquo; <a href="#">Information and Resources</a> &rsaquo; TCRS Overview and Self-Service</div></div>
+
+<div class="titlebar">
+  <div class="wrap">
+    <h1>TCRS Overview and Self-Service</h1>
+    <p>TCRS is the defined benefit plan component of RetireReadyTN, providing lifetime retirement, survivor and disability benefits.</p>
+  </div>
+</div>
+
+<section>
+  <div class="wrap two">
+    <div>
+      <h2>Tennessee Consolidated Retirement System (TCRS)</h2>
+      <p class="lead">TCRS is your defined benefit plan&mdash;providing lifetime retirement, survivor and disability benefits for employees and their beneficiaries.</p>
+      <a class="btn" href="#">Login to TCRS self-service to manage your account</a>
+      <p>Your Tennessee Consolidated Retirement System (TCRS) is recognized as one of the top 5 strongest pension funds in the United States.</p>
+    </div>
+    <div class="badge">
+      <h3>Your TCRS: A foundational component of RetireReadyTN</h3>
+      <p>TCRS provides a strong foundation for RetireReadyTN, the State&rsquo;s retirement plan. RetireReadyTN combines one of the nation&rsquo;s strongest defined benefit plans, provided by TCRS; a 401(k) plan; and retirement readiness education.</p>
+      <div class="flags"><span class="a">TCRS<br>Pension</span><span class="b">401(k)<br>Plan</span><span class="c">Retirement<br>Education</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="alt">
+  <div class="wrap">
+    <h2>Are you retirement ready?</h2>
+    <p>With RetireReadyTN, you can view your customized retirement dashboard and check your progress on the way to meeting your retirement goals.</p>
+    <a class="btn outline" href="#">Login to your retirement dashboard</a>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>Manage your TCRS account</h2>
+    <p>Discover convenient self-service tools and quick-access resources to help you manage your DB plan.</p>
+    <div class="cards">
+      <div class="card">
+        <h3>TCRS Self-Service</h3>
+        <p>Manage your TCRS account in record speed!</p>
+        <ul class="check">
+          <li>View your account details</li>
+          <li>Update your contact information</li>
+          <li>Update your beneficiaries</li>
+          <li>Apply for retirement online</li>
+          <li>Make requests to TCRS</li>
+          <li>Check the status of your requests</li>
+        </ul>
+        <a class="btn" href="#">Login to TCRS Self-Service</a>
+      </div>
+      <div class="card">
+        <h3>TCRS forms, guides, and publications</h3>
+        <p>Looking for a specific form or guide? The Forms and Guides section provides a listing of helpful documents to help you learn more about the various aspects of your retirement and manage your account.</p>
+        <a class="btn outline" href="#">Forms and Guides</a>
+      </div>
+      <div class="card">
+        <h3>Need to make changes to your 401(k)/457 account?</h3>
+        <p>Login to your RetireReadyTN retirement dashboard to manage these and other features of your account.</p>
+        <a class="btn outline" href="#">Retirement dashboard</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="alt">
+  <div class="wrap two">
+    <div>
+      <h2>Discover your retirement dashboard</h2>
+      <p>Login to your RetireReadyTN retirement dashboard to easily:</p>
+      <ul class="check">
+        <li>Access real-time retirement information</li>
+        <li>Get a personalized view of your retirement</li>
+        <li>Learn how to supplement your plan</li>
+        <li>Adjust tax and account information</li>
+        <li>Schedule a meeting with a counselor</li>
+        <li>Explore your 401(k)/457 options</li>
+      </ul>
+      <a class="btn" href="#">Login to your retirement dashboard</a>
+    </div>
+    <div class="badge">
+      <h3>Questions? Chat with Member Services</h3>
+      <p>Select <b>Chat with us</b> at the lower left to start a conversation. A Member Services agent will see your request before answering.</p>
+      <a class="btn" href="#" id="open2">Chat with us</a>
+    </div>
+  </div>
+</section>
+
+<section class="band">
+  <div class="wrap">
+    <h2>Questions? Contact us today!</h2>
+    <div class="contact">
+      <div>
+        <h3>Contact Us</h3>
+        <p>Have questions about your retirement account? We&rsquo;re here to help!</p>
+        <p><b>(800) 555-0100</b> (Main line)</p>
+        <p><b>(800) 555-0101</b> (TDD)</p>
+        <p>member.services@example.invalid</p>
+      </div>
+      <div>
+        <h3>Mailing Address</h3>
+        <p>TCRS<br>Demo Building, 15th Floor<br>100 Example Street<br>Nashville, TN 00000-0000</p>
+      </div>
+      <div>
+        <h3>Other offices</h3>
+        <p>Deferred Compensation Program<br>Demo Retirement Provider<br>PO Box 000000<br>Denver, CO 00000</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site">
+  <div class="wrap">
+    <p>Demo site built for a Genesys Cloud demonstration. All member data, contact details and addresses are fictional. Layout modeled on the public TCRS Overview and Self-Service page; not affiliated with or endorsed by the State of Tennessee.</p>
+    <p>Messages route through <code>KE TN Treasury Digital Intake</code> to the <code>KE_TN_Retirement</code> queue.</p>
+  </div>
+</footer>
+
+<button id="open" type="button" style="position:fixed;left:24px;bottom:24px;background:#a20e00;color:#fff;border:0;border-radius:24px;padding:12px 20px;font:600 14px 'Open Sans',Arial,sans-serif;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.25)">Chat with us</button>
+
+<!-- Genesys Cloud Web Messaging snippet. Region: us-east-1 (environment "prod"). -->
+<script type="text/javascript" charset="utf-8">
+  (function (g, e, n, es, ys) {
+    g['_genesysJs'] = e;
+    g[e] = g[e] || function () { (g[e].q = g[e].q || []).push(arguments); };
+    g[e].t = 1 * new Date();
+    g[e].c = es;
+    ys = document.createElement('script');
+    ys.async = 1; ys.src = n; ys.charset = 'utf-8';
+    document.head.appendChild(ys);
+  })(window, 'Genesys', 'https://apps.mypurecloud.com/genesys-bootstrap/genesys.min.js', {
+    environment: 'prod',
+    deploymentId: 'a238a91f-42ed-4304-bfc2-21b2648e8d2f'
+  });
+
+  function openChat(ev) {
+    if (ev) ev.preventDefault();
+    Genesys('command', 'Messenger.open', {}, function () {}, function (err) { console.warn('Messenger.open', err); });
+  }
+  document.getElementById('open').addEventListener('click', openChat);
+  document.getElementById('open2').addEventListener('click', openChat);
+</script>
+</body>
+</html>
